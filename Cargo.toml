@@ -1,0 +1,29 @@
+[package]
+name = "proxyall"
+version = "0.0.1"
+edition = "2024"
+description = "Minimal WinDivert transparent proxy: route all TCP/IPv4 except one process name"
+license = "MIT"
+
+[[bin]]
+name = "proxyall"
+path = "src/main.rs"
+
+[dependencies]
+libloading = "0.8"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+windows = { version = "0.58", features = [
+    "Win32_Foundation",
+    "Win32_NetworkManagement_IpHelper",
+    "Win32_Networking_WinSock",
+    "Win32_System_Diagnostics_ToolHelp",
+    "Win32_System_Threading",
+    "Win32_System_Console",
+    "Win32_System_SystemInformation",
+] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
